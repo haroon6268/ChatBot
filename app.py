@@ -96,6 +96,3 @@ def is_phising():  # put application's code here
         return jsonify(content), 200
     else:
         return "Something went wrong!", 500
-
-if __name__ == "__main__":
-    app.run()
