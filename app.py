@@ -56,7 +56,8 @@ def hello_world():
     return "Hello World"
 @app.route('/', methods = ['POST, OPTIONS'])
 def is_phising():  # put application's code here
-
+    if request.method == "OPTIONS":
+        return "", 200
     #Grabbing request body
     content = request.get_json()
 
