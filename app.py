@@ -39,7 +39,7 @@ def get_secret():
 
 
 app = Flask(__name__)
-CORS(app, resources={"/*": {"origins": "http://localhost:5173"}})
+CORS(app, resources={"/*": {"origins": "https://chatbot-frontend-indol.vercel.app"}})
 key = get_secret()
 print(key)
 if not key:
