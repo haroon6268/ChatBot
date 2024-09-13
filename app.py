@@ -97,3 +97,5 @@ def is_phising():  # put application's code here
     else:
         return "Something went wrong!", 500
 
+if __name__ == "__main__":
+    app.run()
