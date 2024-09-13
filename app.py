@@ -95,4 +95,4 @@ def is_phising():  # put application's code here
     if content:
         return jsonify(content), 200
     else:
-        return "Something went wrong!", 500
+        return "Something went wrong!!", 500
