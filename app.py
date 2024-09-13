@@ -54,7 +54,7 @@ client = OpenAI(api_key=openai_api_key)
 @app.route("/", methods=["GET"])
 def hello_world():
     return "Hello World"
-@app.route('/', methods = ['POST, OPTIONS'])
+@app.route('/', methods = ['POST'])
 def is_phising():  # put application's code here
     if request.method == "OPTIONS":
         return "", 200
