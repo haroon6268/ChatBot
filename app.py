@@ -50,7 +50,7 @@ openai_api_key = key
 client = OpenAI(api_key=openai_api_key)
 
 #Creating a post route with "/" endpoint
-@app.route('/', methods = ['POST'])
+@app.route('/', methods = ['POST, OPTIONS'])
 def is_phising():  # put application's code here
 
     #Grabbing request body
