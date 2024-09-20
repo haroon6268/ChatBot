@@ -6,6 +6,7 @@ from flask_cors import CORS
 import json
 import boto3
 from botocore.exceptions import ClientError
+import os
 
 
 def get_secret():
@@ -39,12 +40,12 @@ def get_secret():
 
 
 app = Flask(__name__)
-CORS(app, resources={"/*": {"origins": ["https://chatbot-frontend-indol.vercel.app", "http://localhost:5173"]}})
+
 key = get_secret()
 print(key)
-openai_api_key = key
+openai_api_key =""
 
-
+CORS(app, resources={"/*": {"origins": ["https://chatbot-frontend-indol.vercel.app", "http://localhost:5173"]}})
 client = OpenAI()
 
 #Creating a post route with "/" endpoint
