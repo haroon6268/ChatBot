@@ -42,18 +42,12 @@ app = Flask(__name__)
 CORS(app, resources={"/*": {"origins": ["https://chatbot-frontend-indol.vercel.app", "http://localhost:5173"]}})
 key = get_secret()
 print(key)
-if not key:
-    print("eror")
 openai_api_key = key
 
 
-client = OpenAI(api_key=openai_api_key)
+client = OpenAI()
 
 #Creating a post route with "/" endpoint
-
-@app.route("/", methods=["GET"])
-def hello_world():
-    return "Hello World"
 @app.route('/', methods = ['POST', 'OPTIONS'])
 def is_phising():  # put application's code here
     if request.method == "OPTIONS":
@@ -80,20 +74,24 @@ def is_phising():  # put application's code here
         return output, 400
 
     #Make Request to OpenAI API
-    subject, body, sender = content['subject'], content['body'], content['sender']
-    prompt = f"Classify this email as normal or phishing:\nSubject: {subject}\nBody: {body}\nSender: {sender}"
-    completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system",
-             "content": "You are an assistant skilled in cybersecurity, especially in identifying phishing emails."},
-            {"role": "user", "content": prompt},
-        ]
-    )
-    content = completion.choices[0].message.content
-    content.strip()
-    print(content)
-    if content:
-        return jsonify(content), 200
-    else:
-        return "Something went wrong!!", 500
+    try:
+        subject, body, sender = content['subject'], content['body'], content['sender']
+        prompt = f"Classify this email as normal or phishing:\nSubject: {subject}\nBody: {body}\nSender: {sender}"
+        completion = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system",
+                 "content": "You are an assistant skilled in cybersecurity, especially in identifying phishing emails."},
+                {"role": "user", "content": prompt},
+            ]
+        )
+        content = completion.choices[0].message.content
+        content.strip()
+        print(content)
+        if content:
+            return jsonify(content), 200
+
+        else:
+            return "Something Went wrong!", 500
+    except:
+        return "Something Went wrong!", 500
