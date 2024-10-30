@@ -41,9 +41,9 @@ def get_secret():
 app = Flask(__name__)
 
 key = get_secret()
-api_key="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"
+
 CORS(app, resources={"/*": {"origins": ["https://chatbot-frontend-indol.vercel.app", "http://localhost:5173"]}})
-client = OpenAI(api_key=api_key)
+client = OpenAI()
 test = client.chat.completions.create(
     model="gpt-4o-mini",
     messages=[
